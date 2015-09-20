@@ -12,7 +12,7 @@ usage() { echo "Usage: $0 [-i interface] [ -m new mac address]" 1>&2; exit 1; }
 while getopts ":i:m:" o; do
     case "${o}" in
         i)
-			i=${OPTARG}
+            i=${OPTARG}
             ;;
         m)
             m=${OPTARG}
