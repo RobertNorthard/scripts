@@ -15,7 +15,7 @@ fi
 
 # Trsusted fingerprints file
 TRUST_FINGERPRINTS="trusted.txt"
-MITM_DECTED="false"
+MITM_DETECTED="false"
 
 cat $TRUST_FINGERPRINTS | while read i; do
 
@@ -27,12 +27,12 @@ cat $TRUST_FINGERPRINTS | while read i; do
 
     if [ "$FINGERPRINT" != "$NEW_FINGERPRINT" ]; then
         echo "$HOST $FINGERPRINT != $NEW_FINGERPRINT"
-        MITM_DECTED="true"
+        MITM_DETECTED="true"
         exit 1
     fi
 done
 
-if [ "$MITM_DECTED" == "true" ]; then
+if [ "$MITM_DETECTED" == "true" ]; then
     echo "Man in the middle attach detected!"
     exit 1
 else
