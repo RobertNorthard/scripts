@@ -26,16 +26,14 @@ cat $TRUST_FINGERPRINTS | while read i; do
     NEW_FINGERPRINT=$(echo QUIT | openssl s_client -connect $HOST:443 2>/dev/null | openssl x509 -noout -fingerprint | cut -f2 -d'=')
 
     if [ "$FINGERPRINT" != "$NEW_FINGERPRINT" ]; then
-        echo "$HOST $FINGERPRINT != $NEW_FINGERPRINT"
+        echo "FAILED: $HOST $FINGERPRINT != $NEW_FINGERPRINT"
         MITM_DETECTED="true"
-        exit 1
+    else
+    		echo "PASSED: $HOST $FINGERPRINT == $NEW_FINGERPRINT"
+		fi
+
+    if [ "$MITM_DETECTED" == "true" ]; then
+     echo "Man in the middle attach detected or have their certificates been renewed!"
+     exit 1
     fi
 done
-
-if [ "$MITM_DETECTED" == "true" ]; then
-    echo "Man in the middle attach detected!"
-    exit 1
-else
-    echo "Fingerprint check for hosts in $TRUST_FINGERPRINTS passed!"
-    exit 0
-fi
