@@ -1,0 +1,12 @@
+#!/bin/bash
+# Stop me committing to master by mistake
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+if [ "${BRANCH}" = "master" ] ; then
+
+	echo "Are you sure you want to commit to the master branch?"
+	echo	"To bypass commit with the -n flag."
+	exit 1
+
+fi
